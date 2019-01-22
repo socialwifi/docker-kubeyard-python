@@ -1,3 +1,2 @@
 #!/bin/bash -e
-pip-compile --rebuild --verbose --output-file requirements.txt - 1>&2
-cat requirements.txt
+pip-compile --rebuild --verbose --output-file /requirements/python.txt /package/base_requirements.txt
