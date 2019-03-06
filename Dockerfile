@@ -5,6 +5,7 @@ WORKDIR /package
 COPY bin /scripts
 RUN cd /usr/local/bin && for f in /scripts/*; do ln -s "$f" $(basename "${f%.*}"); done
 RUN pip install --upgrade --no-cache-dir \
+    pip==18.1 \
     pip-tools==3.4.0 \
     flake8==3.7.7 \
     flake8-commas==2.0.0 \
