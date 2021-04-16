@@ -5,11 +5,11 @@ WORKDIR /package
 COPY bin /scripts
 RUN cd /usr/local/bin && for f in /scripts/*; do ln -s "$f" $(basename "${f%.*}"); done
 RUN pip install --upgrade --no-cache-dir \
-    pip-tools==3.4.0 \
-    flake8==3.7.7 \
+    pip-tools==6.1.0 \
+    flake8==3.9.1 \
     flake8-commas==2.0.0 \
     isort==4.3.15 \
-    pytest==3.8.1
+    pytest==6.2.3
 COPY ./code_style_config /root
 ARG PIP_EXTRA_INDEX_URL
 ENV PIP_EXTRA_INDEX_URL $PIP_EXTRA_INDEX_URL
