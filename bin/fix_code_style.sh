@@ -1,5 +1,5 @@
 #!/bin/bash
 cd /package
 echo "Fixing imports using isort..."
-isort -y
+isort -v .
 echo "Done!"

@@ -8,7 +8,7 @@ RUN pip install --upgrade --no-cache-dir \
     pip-tools==6.1.0 \
     flake8==3.9.1 \
     flake8-commas==2.0.0 \
-    isort==4.3.15 \
+    isort==5.8.0 \
     pytest==6.2.3
 COPY ./code_style_config /root
 ARG PIP_EXTRA_INDEX_URL
