@@ -1,4 +1,4 @@
-FROM python:3.12-bookworm@sha256:c50322f5f9b2a3b7ac68dc3cf03e5b29d7f51faa58b8321d975f028eb0c00a73
+FROM python:3.12@sha256:c50322f5f9b2a3b7ac68dc3cf03e5b29d7f51faa58b8321d975f028eb0c00a73
 ENV PYTHONUNBUFFERED 1
 RUN mkdir /package
 WORKDIR /package
