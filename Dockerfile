@@ -1,4 +1,4 @@
-FROM python:3.12.1@sha256:c50322f5f9b2a3b7ac68dc3cf03e5b29d7f51faa58b8321d975f028eb0c00a73
+FROM python:3.12.11@sha256:1cb6108b64a4caf2a862499bf90dc65703a08101e8bfb346a18c9d12c0ed5b7e
 
 ENV PYTHONUNBUFFERED=1
 ENV SITE_PACKAGES_DIR=/usr/local/lib/python3.12/site-packages/
