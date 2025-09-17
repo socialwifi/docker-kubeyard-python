@@ -1,22 +1,45 @@
-# KUBEYARD PYTHON IMAGE
+# What is this image
 
-Basic python image that meets [kubeyard](https://pypi.org/project/kubeyard/) requirements. 
+Base Python image that meets [kubeyard](https://pypi.org/project/kubeyard/) requirements. 
 
-For more info, please read `kubeyard` documentation! 
+For more information, please read `kubeyard` documentation.
 
+# How to use this image
 
-## Advanced usage
+Create a `Dockerfile` in your kubeyard project:
 
-If you want to allow downloading packages from own pypi for all images built on this image, 
-you need to run: 
+```dockerfile
+FROM socialwifi/kubeyard-python
 
-```bash
-docker build -t kubeyard-python:own_pypi --build-arg PIP_EXTRA_INDEX_URL=https://username:password@pypi.example.com .
+COPY requirements /requirements
+RUN /usr/local/bin/install_requirements
+
+COPY source /package
+RUN pip install --no-deps --editable .
+RUN mv *.egg-info $SITE_PACKAGES_DIR
+
+CMD ["start_service"]
 ```
 
-## Assumptions
+# Assumptions
 
-### Static analysis
+## Helper scripts and variables
+
+As can be seen in the above example, we are using some helper scripts and variables.
+The important ones are:
+
+Variables:
+1. `SITE_PACKAGES_DIR` - directory where all packages are installed (follows 
+the Python version)
+
+Scripts:
+1. `install_requirements` - script that installs all requirements (Python ones
+with `pip` and system ones with `apt`) from `requirements` directory
+2. `freeze_requirements` - script that generates the `requirements.txt` file
+3. `run_tests` - script that runs code analysis and tests
+
+
+## Static analysis
 
 For static analysis we are using 
 [flake8](https://pypi.org/project/flake8/) and 
@@ -25,11 +48,11 @@ For static analysis we are using
 We are using `flake8` and `isort` separately due to code fixing - 
 When isort is trying to fix imports it uses only own config files, `flake8` configs are omitted.
 
-### Tests
+## Tests
 
 We are using [pytest](https://pypi.org/project/pytest/) for running tests.
 
-### Freezing requirements
+## Freezing requirements
 
-We are decided to use [pip-tools](https://pypi.org/project/pip-tools/) for freezing requirements - 
+We are using [pip-tools](https://pypi.org/project/pip-tools/) for freezing requirements - 
 it gives much more readable output file with all dependencies listed.
