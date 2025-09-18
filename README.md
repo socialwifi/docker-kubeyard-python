@@ -21,6 +21,28 @@ RUN mv *.egg-info $SITE_PACKAGES_DIR
 CMD ["start_service"]
 ```
 
+If you want to leverage Docker cache mounts, you can use the following example:
+```dockerfile
+# syntax=docker/dockerfile:1
+
+FROM socialwifi/kubeyard-python
+
+COPY requirements/apt.txt /requirements/
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,target=/var/lib/apt,sharing=locked \
+    ENABLE_APT_CACHE="1" /usr/local/bin/install_apt_requirements
+COPY requirements/python.txt /requirements/
+RUN --mount=type=cache,target=/root/.cache/pip \
+    ENABLE_PIP_CACHE="1" /usr/local/bin/install_pip_requirements
+
+COPY source /package
+RUN pip install --no-deps --editable .
+RUN mv *.egg-info $SITE_PACKAGES_DIR
+
+CMD ["start_service"]
+```
+More details about Docker cache mounts can be found [here](https://docs.docker.com/build/cache/optimize/#use-cache-mounts).
+
 # Assumptions
 
 ## Helper scripts and variables
